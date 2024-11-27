@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Modify SOAP S{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+    <form action="{{ url_for('modify_soap_s', vat=vat, vat_doctor=vat_doctor, date_timestamp=date_timestamp) }}" method="post">
+        <label for="soap_s">New SOAP S</label>
+        <input type="text" name="soap_s" id="soap_s" required/>
+        <input type="submit" value="Submit"/>
+    </form>
+</article>
+{% endblock %}
