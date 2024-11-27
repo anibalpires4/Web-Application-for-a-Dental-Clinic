@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Dashboard{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+    <h3>Yearly total consultations</h3>
+    {% for consultation_per_grouped_time in consultation_per_grouped_time %}
+        {% if consultation_per_grouped_time.month is none and 
+              consultation_per_grouped_time.day is none and 
+              consultation_per_grouped_time.year is not none %}
+            <p>{{ consultation_per_grouped_time.year }}, total consultations: 
+               {{ consultation_per_grouped_time.total_consultation }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Monthly total consultations</h3>
+    {% for consultation_per_grouped_time in consultation_per_grouped_time %}
+        {% if consultation_per_grouped_time.day is none and 
+              consultation_per_grouped_time.month is not none and 
+              consultation_per_grouped_time.year is not none %}
+            <p>{{ consultation_per_grouped_time.year }}/{{ consultation_per_grouped_time.month }}, 
+               total consultations: {{ consultation_per_grouped_time.total_consultation }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Daily total consultations</h3>
+    {% for consultation_per_grouped_time in consultation_per_grouped_time %}
+        {% if consultation_per_grouped_time.day is not none and 
+              consultation_per_grouped_time.month is not none and 
+              consultation_per_grouped_time.year is not none %}
+            <p>{{ consultation_per_grouped_time.year }}/{{ consultation_per_grouped_time.month }}/{{ consultation_per_grouped_time.day }}, 
+               total consultations: {{ consultation_per_grouped_time.total_consultation }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Total diagnostics per age and gender</h3>
+    {% for diagnostic_per_age_and_sex in diagnostic_per_age_and_sex %}
+        {% if diagnostic_per_age_and_sex.age is not none and diagnostic_per_age_and_sex.gender is not none %}
+            <p>Age: {{ diagnostic_per_age_and_sex.age }}, Gender: {{ diagnostic_per_age_and_sex.gender }}, 
+               Total diagnostics: {{ diagnostic_per_age_and_sex.total_diagnostic_codes }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Total diagnostics per age</h3>
+    {% for diagnostic_per_age_and_sex in diagnostic_per_age_and_sex %}
+        {% if diagnostic_per_age_and_sex.age is not none and diagnostic_per_age_and_sex.gender is none %}
+            <p>Age: {{ diagnostic_per_age_and_sex.age }}, 
+               Total diagnostics: {{ diagnostic_per_age_and_sex.total_diagnostic_codes }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Total diagnostics per gender</h3>
+    {% for diagnostic_per_age_and_sex in diagnostic_per_age_and_sex %}
+        {% if diagnostic_per_age_and_sex.age is none and diagnostic_per_age_and_sex.gender is not none %}
+            <p>Gender: {{ diagnostic_per_age_and_sex.gender }}, 
+               Total diagnostics: {{ diagnostic_per_age_and_sex.total_diagnostic_codes }}</p>
+        {% endif %}
+    {% endfor %}
+</article>
+{% endblock %}
