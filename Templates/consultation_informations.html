@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Consultation Informations{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+    <h3>SOAP Notes</h3>
+    <p class="body"> 
+        SOAP S: {{ soap_notes.soap_s }} 
+        <button onclick="window.location.href='{{ url_for('modify_soap_s_view', vat=vat, date_timestamp=date_timestamp, vat_doctor=vat_doctor) }}';">
+            Modify
+        </button>
+    </p>
+    <p class="body"> 
+        SOAP O: {{ soap_notes.soap_o }} 
+        <button onclick="window.location.href='{{ url_for('modify_soap_o_view', vat=vat, date_timestamp=date_timestamp, vat_doctor=vat_doctor) }}';">
+            Modify
+        </button>
+    </p>
+    <p class="body"> 
+        SOAP A: {{ soap_notes.soap_a }} 
+        <button onclick="window.location.href='{{ url_for('modify_soap_a_view', vat=vat, date_timestamp=date_timestamp, vat_doctor=vat_doctor) }}';">
+            Modify
+        </button>
+    </p>
+    <p class="body"> 
+        SOAP P: {{ soap_notes.soap_p }} 
+        <button onclick="window.location.href='{{ url_for('modify_soap_p_view', vat=vat, date_timestamp=date_timestamp, vat_doctor=vat_doctor) }}';">
+            Modify
+        </button>
+    </p>
+
+    <h3>Diagnostics</h3>
+    {% for diagnostic in diagnostics %}
+        <p class="body">{{ diagnostic.id }}</p>
+    {% else %}
+        <p class="body">No diagnostics</p>
+    {% endfor %}
+    <button onclick="window.location.href='{{ url_for('add_diagnostic_view', vat=vat, date_timestamp=date_timestamp, vat_doctor=vat_doctor) }}';">
+        Add
+    </button>
+
+    <h3>Prescriptions</h3>
+    {% for prescription in prescriptions %}
+        <p class="body">{{ prescription.name }}, {{ prescription.lab }}, {{ prescription.dosage }}, {{ prescription.description }}</p>
+    {% else %}
+        <p class="body">No prescriptions</p>
+    {% endfor %}
+    <button onclick="window.location.href='{{ url_for('add_prescription_view', vat=vat, date_timestamp=date_timestamp, vat_doctor=vat_doctor) }}';">
+        Add
+    </button>
+
+    <h3>Assisting Nurse</h3>
+    <p class="body"> 
+        {{ assisting_nurse.vat_nurse }} 
+        <button onclick="window.location.href='{{ url_for('modify_nurse_view', vat=vat, date_timestamp=date_timestamp, vat_doctor=vat_doctor) }}';">
+            Modify
+        </button>
+    </p>
+</article>
+{% endblock %}
