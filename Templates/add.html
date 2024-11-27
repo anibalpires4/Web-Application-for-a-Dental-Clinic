@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Add New Client{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('add_client_db') }}" method="post">
+    <label for="vat">VAT</label>
+    <input type="text" name="vat" id="vat" required/> <br>
+
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" required/> <br>
+
+    <label for="birthdate">Birthdate</label>
+    <input type="date" name="birthdate" id="birthdate" required/> <br>
+
+    <label for="street">Street</label>
+    <input type="text" name="street" id="street" required/> <br>
+
+    <label for="city">City</label>
+    <input type="text" name="city" id="city" required/> <br>
+
+    <label for="zip">ZIP</label>
+    <input type="text" name="zip" id="zip" required/> <br>
+
+    <label for="gender">Gender</label>
+    <select name="gender" id="gender">
+        <option>M</option>
+        <option>F</option>
+    </select>
+    <br>
+
+    <input type="submit" value="Add New Client">
+</form>
+{% endblock %}
