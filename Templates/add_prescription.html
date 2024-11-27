@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Add Prescription{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+    <form action="{{ url_for('add_prescription', vat=vat, vat_doctor=vat_doctor, date_timestamp=date_timestamp) }}" method="post">
+        <label for="id">For which diagnostic</label>
+        <select name="id" id="id" required>
+            {% for diagnostic in diagnostics %}
+                <option>{{ diagnostic.id }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="name">Medication Name</label>
+        <select name="name" id="name" required>
+            {% for medication in medications %}
+                <option>{{ medication.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="brand">Medication Brand</label>
+        <select name="brand" id="brand" required>
+            {% for medication in medications %}
+                <option>{{ medication.lab }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="dosage">Medication Dosage</label>
+        <input type="text" name="dosage" id="dosage" required>
+        <br>
+        <label for="description">Medication Description</label>
+        <input type="text" name="description" id="description" required>
+        <br>
+        <input type="submit" value="Submit"/>
+    </form>
+</article>
+{% endblock %}
