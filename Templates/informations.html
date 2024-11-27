@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Client {{ vat }} Information{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+    <h3>Appointments</h3>
+    {% for appointment in client_appointments %}
+        <p class="body">{{ appointment.vat_doctor }}, {{ appointment.date_timestamp }}</p>
+        <p class="body">{{ appointment.description }}</p>
+        <hr>
+    {% else %}
+        <p class="body">No Appointments</p>
+    {% endfor %}
+
+    <h3>Consultations</h3>
+    {% for consultation in client_consultations %}
+        <p class="body">
+            <a href="{{ url_for('consultation_information', vat=vat, vat_doctor=consultation.vat_doctor, date_timestamp=consultation.date_timestamp) }}">
+                {{ consultation.vat_doctor }}, {{ consultation.date_timestamp }}
+            </a>
+        </p>
+        <hr>
+    {% else %}
+        <p class="body">No Consultations</p>
+    {% endfor %}
+</article>
+{% endblock %}
