@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Add Diagnostic{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+    <form action="{{ url_for('add_diagnostic', vat=vat, vat_doctor=vat_doctor, date_timestamp=date_timestamp) }}" method="post">
+        <label for="diagnostic">New Diagnostic</label>
+        <select name="diagnostic" id="diagnostic" required>
+            {% for diagnostic in diagnostics %}
+                <option>{{ diagnostic.id }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit"/>
+    </form>
+</article>
+{% endblock %}
