@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>{% block title %}Clients{% endblock %}</h1>
+<form action="{{ url_for('client_filter') }}">
+    <label for="vat">VAT</label>
+    <input type="text" name="vat" id="vat" />
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" />
+    <label for="street">Street</label>
+    <input type="text" name="street" id="street" />
+    <label for="city">City</label>
+    <input type="text" name="city" id="city" />
+    <label for="zip">ZIP</label>
+    <input type="text" name="zip" id="zip" />
+    <input type="submit" value="Filter"/>
+</form>
+<button onclick="window.location.href='{{ url_for('client_index') }}';">Clear Filters</button>
+{% endblock %}
+
+{% block content %}
+{% for client in client_filter %}
+<article>
+    <header>
+        <div>
+            <h1>
+                <a href="{{ url_for('client_info', vat=client['vat']) }}">
+                    {{ client['vat'] }}
+                </a>
+            </h1>
+        </div>
+    </header>
+    <p class="body"> {{ client['name'] }}, {{ client['gender'] }} </p>
+    <p class="body"> {{ client['birth_date'] }} </p>
+    <p class="body"> {{ client['street'] }}, {{ client['city'] }}, {{ client['zip'] }} </p>
+    <button onclick="window.location.href='{{ url_for('schedule_appointment_view', vat=client['vat']) }}';">Schedule an Appointment</button>
+</article>
+{% if not loop.last %}
+<hr>
+{% endif %}
+{% endfor %}
+<hr>
+<form action="{{ url_for('add_client_view') }}">
+    <input type="submit" value="Add New Client">
+</form>
+<p><a href="{{ url_for('facts_consultations') }}">Dashboard</a></p>
+{% endblock %}
