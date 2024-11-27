@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Schedule Appointment for {{ vat }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('search_doctors', vat=vat) }}" method="get">
+    <label for="date">Date</label>
+    <input type="date" name="date" id="date" required/><br>
+    <label for="time">Time</label>
+    <select name="time" id="time" required>
+        <option>9-10 AM</option>
+        <option>10-11 AM</option>
+        <option>11-12 AM</option>
+        <option>12-1 PM</option>
+        <option>1-2 PM</option>
+        <option>2-3 PM</option>
+        <option>3-4 PM</option>
+        <option>4-5 PM</option>
+    </select><br>
+    <input type="submit" value="Search">
+</form>
+
+<br>
+<h3>Available Doctors</h3>
+{% if available_doctors %}
+<form action="{{ url_for('add_appointment', vat=vat) }}" method="post">
+    <div id="searchResults">
+        {% for doctor in available_doctors %}
+            <input type="radio" id="doctor" name="doctor" value="{{ doctor.vat }}" required>
+            <label for="doctor">{{ doctor.name }}, {{ doctor.vat }}</label><br>
+        {% endfor %}
+    </div>
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description" required/><br>
+    <input type="hidden" name="date" value="{{ request.args.get('date') }}">
+    <input type="hidden" name="time" value="{{ request.args.get('time') }}">
+    <input type="submit" value="Schedule">
+</form>
+{% endif %}
+{% endblock %}
